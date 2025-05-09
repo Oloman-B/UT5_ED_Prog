@@ -1,9 +1,7 @@
 
 import vehiculos.coche.*;
 import vehiculos.camion.Camion;
-import vehiculos.moto.MotoDeportiva;
-import vehiculos.moto.MotoScooter;
-import vehiculos.moto.TipoTransmision;
+import vehiculos.moto.*;
 
 
 import java.time.LocalDate;

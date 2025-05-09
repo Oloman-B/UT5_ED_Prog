@@ -2,6 +2,28 @@
 left to right direction
 skinparam classAttributeIconSize 0
 
+class Principal {
+  + main(String[]): void
+  + mostrarMenu(): void
+  + gestionarOpciones(int, Concesionario): void
+  + crearVehiculo(Concesionario): void
+}
+
+class Concesionario {
+  - stockVehiculos: Vehiculo[]
+  - contadorVehiculos: int
+  + buscarVehiculo(String): int
+  + insertarVehiculo(Vehiculo): boolean
+  + asignarPropietario(String): boolean
+  + informacionVehiculo(String): String
+  + listadoVehiculos(): String[]
+  + listadoVehiculosDetalle(): String[]
+  + esAlmacenLleno(): int
+  - esPosicionValida(int): boolean
+  + calcularRiesgoFinal(String): void
+  + calcularDepreciacionFinal(String): void
+}
+
 package "vehiculos" {
 
     abstract class Vehiculo {
@@ -23,6 +45,27 @@ package "vehiculos" {
       + {abstract} imprimirDatosVehiculo(): String
     }
 
+    class Persona {
+      - nombre: String
+      - apellidos: String
+      - dni: Dni
+      - anoNacimiento: int
+      - anoCarnet: int
+      + solicitarDatosPersona(): Persona
+      + toString(): String
+    }
+
+    class Dni {
+      - numDni: int
+      - LETRAS_DNI: String
+      - calcularLetraNif(int): char
+      - extraerLetraNif(String): char
+      + extraerNumeroNif(String): int
+      + obtenerNif(int): String
+      + pedirValidarNif(String): String
+      + validarNif(String): boolean
+      + dniToString(): String
+    }
     package "camion" {
         class Camion {
           - capacidadCarga: double
@@ -120,28 +163,6 @@ package "vehiculos" {
         }
     }
 
-    class Persona {
-      - nombre: String
-      - apellidos: String
-      - dni: Dni
-      - anoNacimiento: int
-      - anoCarnet: int
-      + solicitarDatosPersona(): Persona
-      + toString(): String
-    }
-
-    class Dni {
-      - numDni: int
-      - LETRAS_DNI: String
-      - calcularLetraNif(int): char
-      - extraerLetraNif(String): char
-      + extraerNumeroNif(String): int
-      + obtenerNif(int): String
-      + pedirValidarNif(String): String
-      + validarNif(String): boolean
-      + dniToString(): String
-    }
-
     class Utilidades {
       + sc: Scanner
       - formatoEsp: DateTimeFormatter
@@ -165,50 +186,7 @@ package "vehiculos" {
       + calcularRiesgo(): String
     }
 }
-class Concesionario {
-  - stockVehiculos: Vehiculo[]
-  - contadorVehiculos: int
-  + buscarVehiculo(String): int
-  + insertarVehiculo(Vehiculo): boolean
-  + asignarPropietario(String): boolean
-  + informacionVehiculo(String): String
-  + listadoVehiculos(): String[]
-  + listadoVehiculosDetalle(): String[]
-  + esAlmacenLleno(): int
-  - esPosicionValida(int): boolean
-  + calcularRiesgoFinal(String): void
-  + calcularDepreciacionFinal(String): void
-}
 
-class Principal {
-  + main(String[]): void
-  + mostrarMenu(): void
-  + gestionarOpciones(int, Concesionario): void
-  + crearVehiculo(Concesionario): void
-}
-
-
-Camion --|> Vehiculo
-Coche --|> Vehiculo
-CocheDeportivo --|> Coche
-CocheSedan --|> Coche
-CocheSuv --|> Coche
-Moto --|> Vehiculo
-MotoDeportiva --|> Moto
-MotoScooter --|> Moto
-Vehiculo ..|> Asegurable
-Vehiculo ..|> Imprimible
-Vehiculo ..|> Valorable
-Coche --> Traccion
-CocheSedan --> NivelConfort
-Moto --> TipoTransmision
-Dni --* Persona
-Persona --o Vehiculo
-Persona ..> Utilidades : usa
-Dni ..> Utilidades : usa
-Principal ..> Utilidades : usa
-Vehiculo --o Concesionario
-Concesionario ..> Persona
 
 Principal ..> Camion : crea instancia
 Principal ..> CocheDeportivo : crea instancia
@@ -217,11 +195,39 @@ Principal ..> CocheSuv : crea instancia
 Principal ..> MotoDeportiva : crea instancia
 Principal ..> MotoScooter : crea instancia
 
-Principal ..> TipoTransmision : usa
-Principal ..> NivelConfort : usa
-Principal ..> Traccion : usa
+Principal ..> Utilidades : usa
 
-Principal ..> Vehiculo : validación matrículas
+Principal ..> Vehiculo : validación matrícula
 Principal ..> Utilidades : validación entrada datos
+
+Principal ..> Traccion : usa
+Principal ..> NivelConfort : usa
+Principal ..> TipoTransmision : usa
+
+Concesionario o-- Vehiculo : crea stockVehiculos
+Concesionario ..> Persona : propietario
+
+Vehiculo *-- Persona : es propietario
+Persona ..> Utilidades : usa
+Dni --* Persona : es parte de
+Dni ..> Utilidades : usa
+
+Vehiculo <|-- Camion :herencia
+
+Vehiculo <|-- Coche :herencia
+Coche <|-- CocheDeportivo :herencia
+Coche <|-- CocheSedan :herencia
+Coche <|-- CocheSuv :herencia
+Coche --> Traccion
+CocheSedan --> NivelConfort
+
+Vehiculo <|-- Moto :herencia
+Moto <|-- MotoDeportiva :herencia
+Moto <|-- MotoScooter :herencia
+Moto --> TipoTransmision
+
+Vehiculo ..|> Asegurable
+Vehiculo ..|> Imprimible
+Vehiculo ..|> Valorable
 
 @enduml
