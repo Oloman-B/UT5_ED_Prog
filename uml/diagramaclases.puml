@@ -1,5 +1,5 @@
 @startuml
-left to right direction
+
 skinparam classAttributeIconSize 0
 
 class Principal {
@@ -24,7 +24,7 @@ class Concesionario {
   + calcularDepreciacionFinal(String): void
 }
 
-package "vehiculos" {
+
 
     abstract class Vehiculo {
       # matricula: String
@@ -66,7 +66,7 @@ package "vehiculos" {
       + validarNif(String): boolean
       + dniToString(): String
     }
-    package "camion" {
+
         class Camion {
           - capacidadCarga: double
           - numEjes: int
@@ -76,9 +76,6 @@ package "vehiculos" {
           + calcularDepreciacion(): double
           + imprimirDatosVehiculo(): String
         }
-    }
-
-    package "coche" {
 
         abstract class Coche {
           - numPuertas: int
@@ -128,9 +125,7 @@ package "vehiculos" {
           TRASERA
           TOTAL
         }
-    }
 
-    package "moto" {
         enum TipoTransmision{
           MANUAL
           AUTOMATICA
@@ -161,7 +156,6 @@ package "vehiculos" {
           + calcularDepreciacion(): double
           + imprimirDatosVehiculo(): String
         }
-    }
 
     class Utilidades {
       + sc: Scanner
@@ -185,7 +179,7 @@ package "vehiculos" {
     interface Asegurable {
       + calcularRiesgo(): String
     }
-}
+
 
 
 Principal ..> Camion : crea instancia
