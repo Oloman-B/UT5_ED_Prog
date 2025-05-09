@@ -182,29 +182,29 @@ class Concesionario {
 
 
 
-Principal ..> Camion : crea instancia
-Principal ..> CocheDeportivo : crea instancia
-Principal ..> CocheSedan : crea instancia
-Principal ..> CocheSuv : crea instancia
-Principal ..> MotoDeportiva : crea instancia
-Principal ..> MotoScooter : crea instancia
+Principal "1" ..> "0..*" Camion : crea instancia
+Principal "1" ..> "0..*" CocheDeportivo : crea instancia
+Principal "1" ..> "0..*" CocheSedan : crea instancia
+Principal "1" ..> "0..*" CocheSuv : crea instancia
+Principal "1" ..> "0..*" MotoDeportiva : crea instancia
+Principal "1" ..> "0..*" MotoScooter : crea instancia
 
-Principal ..> Utilidades : usa
+Principal "1" ..> "1" Utilidades : usa
 
-Principal ..> Vehiculo : validación matrícula
-Principal ..> Utilidades : validación entrada datos
+Principal "1" ..> "1" Vehiculo : validación matrícula
+Principal "1" ..> "1" Utilidades : validación entrada datos
 
-Principal ..> Traccion : usa
-Principal ..> NivelConfort : usa
-Principal ..> TipoTransmision : usa
+Principal "1" ..> "1" Traccion : usa
+Principal "1" ..> "1" NivelConfort : usa
+Principal "1" ..> "1" TipoTransmision : usa
 
-Concesionario o-- Vehiculo : crea stockVehiculos
-Concesionario ..> Persona : propietario
+Concesionario "1" o-- "0..*" Vehiculo : crea stockVehiculos
+Concesionario "1" ..> "0..*" Persona : propietario
 
-Vehiculo *-- Persona : es propietario
-Persona ..> Utilidades : usa
-Dni --* Persona : es parte de
-Dni ..> Utilidades : usa
+Vehiculo "1" *-- "0..1" Persona : es propietario
+Persona "1" ..> "1" Utilidades : usa
+Dni "1" --* "1" Persona : es parte de
+Dni "1" ..> "1" Utilidades : usa
 
 Vehiculo <|-- Camion :herencia
 
@@ -212,13 +212,13 @@ Vehiculo <|-- Coche :herencia
 Coche <|-- CocheDeportivo :herencia
 Coche <|-- CocheSedan :herencia
 Coche <|-- CocheSuv :herencia
-Coche --> Traccion
-CocheSedan --> NivelConfort
+Coche "1" --> "1" Traccion
+CocheSedan "1" --> "1" NivelConfort
 
 Vehiculo <|-- Moto :herencia
 Moto <|-- MotoDeportiva :herencia
 Moto <|-- MotoScooter :herencia
-Moto --> TipoTransmision
+Moto "1" --> "1" TipoTransmision
 
 Vehiculo ..|> Asegurable
 Vehiculo ..|> Imprimible
