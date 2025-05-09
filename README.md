@@ -15,5 +15,6 @@ Diagrama de clases
 - [x] Generar diagrama UML en .svg con PlantUML
 - [X] Insertar diagrama en README.md remoto
 
-
-![Diagrama] (/uml/diagrama_clases.svg)
+---
+---
+![Diagrama](uml/diagrama_clases.svg)
