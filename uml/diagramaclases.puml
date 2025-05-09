@@ -1,0 +1,58 @@
+@startuml
+abstract class Vehiculo {
+}
+class Camion {
+}
+abstract class Coche {
+}
+class CocheDeportivo {
+}
+class CocheSedan {
+}
+class CocheSuv {
+}
+enum NivelConfort{
+ BASICO
+ MEDIO
+ PREMIUM
+}
+enum Traccion {
+ DELANTERA
+ TRASERA
+ TOTAL
+}
+enum TipoTransmision{
+ MANUAL
+ AUTOMATICA
+}
+abstract class Moto {
+}
+class MotoDeportiva {
+}
+class MotoScooter {
+}
+class Persona {
+}
+
+class Dni {
+}
+
+class Utilidades {
+}
+
+interface Imprimible {
+}
+
+interface Valorable {
+}
+
+interface Asegurable {
+}
+
+class Concesionario {
+}
+
+class Principal {
+}
+
+@enduml
