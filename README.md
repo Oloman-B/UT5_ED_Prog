@@ -6,7 +6,9 @@ Diagrama de clases
 - [ ] Añadir README.md con checklist
 - [ ] Clonar el repositorio
 - [ ] Crear carpeta uml/
-- [ ] Crear ficheros .puml por cada clase (estructura inicial)
+- [ ] Crear carpeta src/ 
+- [ ] Crear fichero diagramaclases.puml (estructura inicial)
+- [ ] Guardar ficheros .java
 - [ ] Hacer el primer commit y subir al remoto
 - [ ] Modelar atributos, métodos y relaciones
 - [ ] Actualizar cambios al remoto
