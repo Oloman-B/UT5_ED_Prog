@@ -1,58 +1,227 @@
 @startuml
-abstract class Vehiculo {
-}
-class Camion {
-}
-abstract class Coche {
-}
-class CocheDeportivo {
-}
-class CocheSedan {
-}
-class CocheSuv {
-}
-enum NivelConfort{
- BASICO
- MEDIO
- PREMIUM
-}
-enum Traccion {
- DELANTERA
- TRASERA
- TOTAL
-}
-enum TipoTransmision{
- MANUAL
- AUTOMATICA
-}
-abstract class Moto {
-}
-class MotoDeportiva {
-}
-class MotoScooter {
-}
-class Persona {
-}
+left to right direction
+skinparam classAttributeIconSize 0
 
-class Dni {
-}
+package "vehiculos" {
 
-class Utilidades {
-}
+    abstract class Vehiculo {
+      # matricula: String
+      # marca: String
+      # modelo: String
+      # anoFabricacion: int
+      # kilometraje: int
+      # precio: double
+      # isDisponible: boolean
+      # propietario: Persona
+      + pedirValidarMatricula(String): String
+      + {abstract} calcularRiesgo(): String
+      # calcularAntiguedad(): int
+      + {abstract} calcularDepreciacion(): double
+      # calcularDepreciacionEdad(double): double
+      # calcularDepreciacionKilometraje(double): double
+      + imprimirDatosComunes(): String
+      + {abstract} imprimirDatosVehiculo(): String
+    }
 
-interface Imprimible {
-}
+    package "camion" {
+        class Camion {
+          - capacidadCarga: double
+          - numEjes: int
+          - longitudRemolque: double
+          - potenciaMotor: int
+          + calcularRiesgo(): String
+          + calcularDepreciacion(): double
+          + imprimirDatosVehiculo(): String
+        }
+    }
 
-interface Valorable {
-}
+    package "coche" {
 
-interface Asegurable {
-}
+        abstract class Coche {
+          - numPuertas: int
+          - tipoCombustible: String
+          - capacidadMaletero: int
+          - traccion: Traccion
+          + pedirValidarTraccion(String): Traccion
+          + {abstract} calcularRiesgo(): String
+          + {abstract} calcularDepreciacion(): double
+          + imprimirDatosVehiculo(): String
+        }
 
+        class CocheDeportivo {
+          - aceleracion0a100: double
+          - potenciaCv: int
+          - tieneModoPista: boolean
+          + calcularRiesgo(): String
+          + calcularDepreciacion(): double
+          + imprimirDatosVehiculo(): String
+        }
+
+        class CocheSedan {
+          - espacioInterior: double
+          - nivelConfort: NivelConfort
+          + pedirValidarConfort(String): NivelConfort
+          + calcularRiesgo(): String
+          + calcularDepreciacion(): double
+          + imprimirDatosVehiculo(): String
+        }
+
+        class CocheSuv {
+          - capacidadOffroad: boolean
+          - alturaLibreSuelo: double
+          + calcularRiesgo(): String
+          + calcularDepreciacion(): double
+          + imprimirDatosVehiculo(): String
+        }
+
+        enum NivelConfort{
+          BASICO
+          MEDIO
+          PREMIUM
+        }
+
+        enum Traccion {
+          DELANTERA
+          TRASERA
+          TOTAL
+        }
+    }
+
+    package "moto" {
+        enum TipoTransmision{
+          MANUAL
+          AUTOMATICA
+        }
+
+        abstract class Moto {
+          - cilindrada: int
+          - peso: int
+          - alturaAsiento: double
+          - tipoTransmision: TipoTransmision
+          + pedirValidarTipoTransmision(String): TipoTransmision
+          + {abstract} calcularRiesgo(): String
+          + {abstract} calcularDepreciacion(): double
+          + imprimirDatosVehiculo(): String
+        }
+
+        class MotoDeportiva {
+          - velocidadMaxima: double
+          - tieneQuickShifter: boolean
+          + calcularRiesgo(): String
+          + calcularDepreciacion(): double
+          + imprimirDatosVehiculo(): String
+        }
+
+        class MotoScooter {
+          - espacioBajoAsiento: int
+          + calcularRiesgo(): String
+          + calcularDepreciacion(): double
+          + imprimirDatosVehiculo(): String
+        }
+    }
+
+    class Persona {
+      - nombre: String
+      - apellidos: String
+      - dni: Dni
+      - anoNacimiento: int
+      - anoCarnet: int
+      + solicitarDatosPersona(): Persona
+      + toString(): String
+    }
+
+    class Dni {
+      - numDni: int
+      - LETRAS_DNI: String
+      - calcularLetraNif(int): char
+      - extraerLetraNif(String): char
+      + extraerNumeroNif(String): int
+      + obtenerNif(int): String
+      + pedirValidarNif(String): String
+      + validarNif(String): boolean
+      + dniToString(): String
+    }
+
+    class Utilidades {
+      + sc: Scanner
+      - formatoEsp: DateTimeFormatter
+      + pedirValidarBoolean(String): Boolean
+      + pedirValidarString(String): String
+      + pedirValidarEntero(int, int, String): int
+      + pedirValidarDouble(double, String): double
+      + pedirValidarArrayStrings(int, int, String): String[]
+      + validarFechaMenorHoy(LocalDate): boolean
+      + pedirValidarFechaddmmaaaa(String): LocalDate
+    }
+
+    interface Imprimible {
+      + imprimirDatosVehiculo(): String
+    }
+
+    interface Valorable {
+      + calcularDepreciacion(): double
+    }
+    interface Asegurable {
+      + calcularRiesgo(): String
+    }
+}
 class Concesionario {
+  - stockVehiculos: Vehiculo[]
+  - contadorVehiculos: int
+  + buscarVehiculo(String): int
+  + insertarVehiculo(Vehiculo): boolean
+  + asignarPropietario(String): boolean
+  + informacionVehiculo(String): String
+  + listadoVehiculos(): String[]
+  + listadoVehiculosDetalle(): String[]
+  + esAlmacenLleno(): int
+  - esPosicionValida(int): boolean
+  + calcularRiesgoFinal(String): void
+  + calcularDepreciacionFinal(String): void
 }
 
 class Principal {
+  + main(String[]): void
+  + mostrarMenu(): void
+  + gestionarOpciones(int, Concesionario): void
+  + crearVehiculo(Concesionario): void
 }
+
+
+Camion --|> Vehiculo
+Coche --|> Vehiculo
+CocheDeportivo --|> Coche
+CocheSedan --|> Coche
+CocheSuv --|> Coche
+Moto --|> Vehiculo
+MotoDeportiva --|> Moto
+MotoScooter --|> Moto
+Vehiculo ..|> Asegurable
+Vehiculo ..|> Imprimible
+Vehiculo ..|> Valorable
+Coche --> Traccion
+CocheSedan --> NivelConfort
+Moto --> TipoTransmision
+Dni --* Persona
+Persona --o Vehiculo
+Persona ..> Utilidades : usa
+Dni ..> Utilidades : usa
+Principal ..> Utilidades : usa
+Vehiculo --o Concesionario
+Concesionario ..> Persona
+
+Principal ..> Camion : crea instancia
+Principal ..> CocheDeportivo : crea instancia
+Principal ..> CocheSedan : crea instancia
+Principal ..> CocheSuv : crea instancia
+Principal ..> MotoDeportiva : crea instancia
+Principal ..> MotoScooter : crea instancia
+
+Principal ..> TipoTransmision : usa
+Principal ..> NivelConfort : usa
+Principal ..> Traccion : usa
+
+Principal ..> Vehiculo : validación matrículas
+Principal ..> Utilidades : validación entrada datos
 
 @enduml
