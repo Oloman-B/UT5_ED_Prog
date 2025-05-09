@@ -16,4 +16,4 @@ Diagrama de clases
 - [X] Insertar diagrama en README.md remoto
 
 
-![Diagrama de clases] (https://raw.githubusercontent.com/Oloman-B/UT5_ED_Prog/refs/heads/main/uml/diagramaUML.svg)
+![Diagrama] (/uml/diagrama_clases.svg)
